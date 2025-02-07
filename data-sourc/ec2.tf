@@ -2,17 +2,12 @@
 resource "aws_instance" "expense" {
 
   //count                  = length(var.instance_names)
-  ami                    = var.image_id # "ami-090252cbe067a9e58"
-  instance_type          = var.instance_names[3] == "db" ? "t3.small" : "t3.micro"
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-  /*tags = merge(
-    var.common_tags,
-    {
-      Name   = var.instance_names[count.index]
-      Module = var.instance_names[count.index]
-    }
-  )
-}*/
+  ami                    = data.aws_ami.ami_id.id
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = ["sg-0433e256572e383aa"]
+
+
+}
 
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
